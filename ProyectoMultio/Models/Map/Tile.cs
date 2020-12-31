@@ -1,16 +1,14 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using ProyectoMultio.Globals;
+using ProyectoMultio.Helper;
 
 namespace ProyectoMultio.Models.Map
 {
     public struct Tile
     {
-        //constante de la textura
-        public static Texture2D Texture { get; set; } = Global.Content.Load<Texture2D>("Images/Map/texture1");
 
-        //constante para el tamaño del tile x, y
-        public static Point Size { get; set; } = new Point(32, 32);
+        //cursor del inicio de Textura
+        public Point SourcePoint { get; set; }
 
         //booleano para saber si es pasable o no
         public bool IsBlock { get; set; }
@@ -21,7 +19,14 @@ namespace ProyectoMultio.Models.Map
         //booleano para saber si es visible o no
         public bool IsVisible { get; set; }
 
-        //coordenadas x, y de la textura a dibujar
-        public Point PointTexture { get; set; }
+        public void Render(Point position)
+        {
+            Globals.SpriteBatch.Draw(
+                Textures.Tiles,
+                new Rectangle(position, Globals.TileSize), 
+                new Rectangle(SourcePoint, Globals.TileSize), 
+                Color.White
+                );
+        }
     }
 }

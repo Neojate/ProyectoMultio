@@ -1,9 +1,10 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using ProyectoMultio.Globals;
-using ProyectoMultio.Models.Options;
-using ProyectoMultio.Screens;
+using ProyectoMultio.Helper;
+using ProyectoMultio.Modules.Options;
+using ProyectoMultio.Modules.ScreenManagers;
+using ProyectoMultio.Views;
 
 namespace ProyectoMultio
 {
@@ -14,22 +15,19 @@ namespace ProyectoMultio
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-        ScreenManager screenManager;
-        GraphicOptions graphicOptions;
         
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
 
-            graphicOptions = new GraphicOptions();
+            //Arranque de las opciones del juego
+            Globals.Options = new Options();
 
-            graphics.PreferredBackBufferWidth = graphicOptions.Resolution.X;
-            graphics.PreferredBackBufferHeight = graphicOptions.Resolution.Y;
+            graphics.PreferredBackBufferWidth = Globals.Resolution.X;
+            graphics.PreferredBackBufferHeight = Globals.Resolution.Y;
 
             IsMouseVisible = true;
-
-            screenManager = new ScreenManager();
         }
 
         /// <summary>
@@ -53,11 +51,17 @@ namespace ProyectoMultio
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
+            Globals.SpriteBatch = spriteBatch;
+            
+            Globals.Content = this.Content;
 
-            Global.Content = this.Content;
+            //cargas de assets
+            Textures.Load();
+            Fonts.Load();
 
+            Globals.ScreenManager = new ScreenManager();
             //pantalla de inicio de la partida
-            screenManager.AddScreen(new GameScreen(spriteBatch));            
+            Globals.ScreenManager.AddScreen(new GameScreen()); 
         }
 
         /// <summary>
@@ -79,7 +83,11 @@ namespace ProyectoMultio
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
-            screenManager.Update();
+            //Actualizacion del Input
+            Input.Update();
+
+            //Actualizacion de las pantallas
+            Globals.ScreenManager.Update();
 
             base.Update(gameTime);
         }
@@ -92,7 +100,9 @@ namespace ProyectoMultio
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            screenManager.Draw();
+            Globals.SpriteBatch.Begin();
+            Globals.ScreenManager.Draw();
+            Globals.SpriteBatch.End();
 
             base.Draw(gameTime);
         }

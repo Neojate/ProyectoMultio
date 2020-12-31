@@ -1,7 +1,7 @@
 ﻿using ProyectoMultio.Models.Screen;
 using System.Collections.Generic;
 
-namespace ProyectoMultio.Screens
+namespace ProyectoMultio.Modules.ScreenManagers
 {
     public class ScreenManager
     {
@@ -35,7 +35,7 @@ namespace ProyectoMultio.Screens
                 screen.HandleInput();
                 screen.Update();
             });
-            
+
         }
 
         public void Draw()
