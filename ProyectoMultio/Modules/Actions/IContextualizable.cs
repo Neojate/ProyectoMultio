@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace ProyectoMultio.Modules.Actions
 {
-    public interface IUsable
+    public interface IContextualizable
     {
-        void Use();
+        List<string> ContextualizeMethods();
     }
 }

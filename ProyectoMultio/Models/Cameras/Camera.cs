@@ -11,7 +11,7 @@ namespace ProyectoMultio.Models.Cameras
 
         public Camera()
         {
-            Position = Point.Zero;
+            Position = new Point(1, 1);
 
             RenderTiles = new Vector2()
             {

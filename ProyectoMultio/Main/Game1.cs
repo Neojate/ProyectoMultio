@@ -28,6 +28,7 @@ namespace ProyectoMultio
             graphics.PreferredBackBufferHeight = Globals.Resolution.Y;
 
             IsMouseVisible = true;
+            //graphics.IsFullScreen = true;
         }
 
         /// <summary>
@@ -55,9 +56,10 @@ namespace ProyectoMultio
             
             Globals.Content = this.Content;
 
-            //cargas de assets
+            //cargas de recursos
             Textures.Load();
             Fonts.Load();
+            Lang.Load();
 
             Globals.ScreenManager = new ScreenManager();
             //pantalla de inicio de la partida

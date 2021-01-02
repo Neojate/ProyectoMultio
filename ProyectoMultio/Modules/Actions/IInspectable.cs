@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace ProyectoMultio.Modules.Actions
 {
-    public interface IUsable
+    public interface IInspectable
     {
-        void Use();
+        void Inspect();
     }
 }

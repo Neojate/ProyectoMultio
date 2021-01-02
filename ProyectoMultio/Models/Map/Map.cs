@@ -27,24 +27,42 @@ namespace ProyectoMultio.Models.Map
 
             Scenario[13, 5] = Utils.GetTile(TileType.Grass);
 
+            for (int y = 0; y < Size.Y; y++)
+            {
+                Scenario[0, y].IsBlock = true;
+                Scenario[Size.X - 1, y].IsBlock = true;
+            }
+                
+
+            for (int x = 0; x < Size.X; x++)
+            {
+                Scenario[x, 0].IsBlock = true;
+                Scenario[x, Size.Y - 1].IsBlock = true;
+            }
+
+            for (int i = 0; i < 8; i++)
+                Scenario[3, i].IsBlock = true;
+            
             //elementos de pega
             Elements = new List<Element>()
             {
                 new Door()
                 {
-                    Position = new Point(1, 0),
+                    Position = new Point(7, 3),
                     SourceRectangle = new Rectangle(0, 0, 32, 32),
                     SourceClose = new Rectangle(0, 0, 32, 32),
                     SourceOpen = new Rectangle(32, 0, 32, 32),
                     Texture = Textures.Furniture,
                     IsOpen = false,
-                    IsBlock = true
+                    IsBlock = true,
+                    Name = Lang.Trans("door")
                 },
                 new Item()
                 {
                     Position = new Point(5, 5),
                     SourceRectangle = new Rectangle(0, 0, 32, 32),
-                    Texture = Textures.Furniture
+                    Texture = Textures.Furniture,
+                    Name = Lang.Trans("marker")
                 }
             };
         }

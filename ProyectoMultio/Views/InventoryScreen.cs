@@ -1,27 +1,52 @@
-﻿using ProyectoMultio.Models.Screen;
-using System;
+﻿using Microsoft.Xna.Framework;
+using ProyectoMultio.Helper;
+using ProyectoMultio.Models.Components;
+using ProyectoMultio.Models.Screen;
+using ProyectoMultio.Modules.Actions;
+using ProyectoMultio.Modules.Options;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ProyectoMultio.Views
 {
     class InventoryScreen : Screen
     {
+        private List<Panel> panels;
+
+        public InventoryScreen()
+        {
+            panels = new List<Panel>()
+            {
+                new Panel()
+                {
+                    Texture = Textures.InventoryBg,
+                    Bounds = new Rectangle(0, 0, Globals.Resolution.X, Globals.Resolution.Y),
+                    SourceRectangle = new Rectangle(0, 0, Textures.InventoryBg.Width, Textures.InventoryBg.Height),
+                    BackgroundColor = Color.Yellow,
+                    Style = new Style()
+                    {
+                        Margin = new int[] { 100, 100, 100, 100 }
+                    }
+                }
+            };
+        }
+
         public override void Draw()
         {
-            throw new NotImplementedException();
+            foreach (Panel panel in panels)
+                panel.Render();
         }
 
         public override void HandleInput()
         {
-            throw new NotImplementedException();
+            KeyboardOptions controls = Globals.Options.KeyboardOptions;
+
+            if (Input.KeyPressed(controls.Inventory))
+                Globals.ScreenManager.RemoveWithFocus(this.Name, "GameScreen");
         }
 
         public override void Update()
         {
-            throw new NotImplementedException();
+            
         }
     }
 }

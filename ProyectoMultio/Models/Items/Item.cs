@@ -1,10 +1,11 @@
 ﻿using ProyectoMultio.Models.Character;
 using ProyectoMultio.Models.Elements;
 using ProyectoMultio.Modules.Actions;
+using System.Collections.Generic;
 
 namespace ProyectoMultio.Models.Items
 {
-    public class Item : Element, IGrabable
+    public class Item : Element, IGrabable, IContextualizable
     {
         public bool IsAnItem { get; set; } = true;
         public Item()
@@ -21,6 +22,11 @@ namespace ProyectoMultio.Models.Items
         {
             player.CharacterSheet.Inventory.Add(this);
             map.Elements.Remove(this);
+        }
+
+        public List<string> ContextualizeMethods()
+        {
+            return new List<string>() { "Grab" };
         }
     }
 }

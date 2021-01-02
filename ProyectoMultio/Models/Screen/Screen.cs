@@ -15,7 +15,7 @@ namespace ProyectoMultio.Models.Screen
         public string Name { get { return GetType().Name; } }
 
         //Estado de la pantalla
-        public ScreenState State { get; set; }
+        public ScreenState State { get; set; } = ScreenState.Active;
 
         public abstract void HandleInput();
 

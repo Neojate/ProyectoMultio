@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using ProyectoMultio.Helper;
 using ProyectoMultio.Models.Cameras;
 using ProyectoMultio.Modules.Actions;
+using System.Collections.Generic;
 
 namespace ProyectoMultio.Models.Elements
 {
@@ -15,6 +16,8 @@ namespace ProyectoMultio.Models.Elements
         public Rectangle SourceRectangle { get; set; }
 
         public Color BackgroundColor { get; set; } = Color.White;
+
+        public string Name { get; set; }
 
         //Si el elemento bloquea el camino
         public bool IsBlock { get; set; }

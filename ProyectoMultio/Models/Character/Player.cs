@@ -18,7 +18,7 @@ namespace ProyectoMultio.Models.Character
             SourceRectangle = new Rectangle(0, 0, Globals.TileSize.X, Globals.TileSize.Y);
 
             CharacterSheet = new Sheet();
-            Position = new Point(0, 0);
+            Position = new Point(1, 1);
         }
 
         //public override void Render(Camera camera)
@@ -33,14 +33,14 @@ namespace ProyectoMultio.Models.Character
 
         public List<Point> GetNeighbourPositions()
         {
-            List<Point> positions = new List<Point>();
+            List<Point> Positions = new List<Point>();
 
             for (int y = -1; y < 2; y++)
                 for (int x = -1; x < 2; x++)
                     if (!(y == 0 && x == 0))
-                        positions.Add(new Point(Position.X + x, Position.Y + y));
+                        Positions.Add(new Point(Position.X + x, Position.Y + y));
 
-            return positions;
+            return Positions;
         }
 
         public void Move(MoveType direction, List<Element> elements)

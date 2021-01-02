@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using ProyectoMultio.Models.Map;
 using System;
 using System.Collections.Generic;
@@ -41,6 +42,16 @@ namespace ProyectoMultio.Helper
         public static Point SubstractPoints(Point pointA, Point pointB)
         {
             return new Point(pointA.X - pointB.X, pointA.Y - pointB.Y);
+        }
+
+        public static Vector2 CenterText(Rectangle bounds, SpriteFont font, string text)
+        {
+            Vector2 measureText = font.MeasureString(text);
+            return new Vector2()
+            {
+                X = (bounds.Width / 2 - measureText.X / 2) + bounds.X,
+                Y = (bounds.Height / 2 - measureText.Y / 2) + bounds.Y
+            };
         }
     }
 }

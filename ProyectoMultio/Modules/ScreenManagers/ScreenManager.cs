@@ -13,10 +13,27 @@ namespace ProyectoMultio.Modules.ScreenManagers
             screens.Add(screen);
         }
 
+        public void AddWithoutFocus(Screen newScreen, Screen unfocusScreen)
+        {
+            screens.Add(newScreen);
+            unfocusScreen.State = ScreenState.Hidden;
+        }
+
         /* Método estático para quitar pantallas a las actuales */
-        public void Unload(string screenName)
+        public void RemoveScreen(string screenName)
         {
             screens.Find(s => s.Name == screenName).State = ScreenState.Shutdown;
+        }
+
+        public void RemoveWithFocus(string removeName, string focusName)
+        {
+            foreach (Screen screen in screens)
+            {
+                if (screen.Name == removeName)
+                    screen.State = ScreenState.Shutdown;
+                else if (screen.Name == focusName)
+                    screen.State = ScreenState.Active;
+            }
         }
 
         public void Update()
@@ -30,19 +47,17 @@ namespace ProyectoMultio.Modules.ScreenManagers
             foreach (Screen screen in removeScreens)
                 screens.Remove(screen);
 
-            screens.ForEach(screen =>
+            foreach (Screen screen in screens.FindAll(s => s.State == ScreenState.Active).ToArray())
             {
                 screen.HandleInput();
                 screen.Update();
-            });
-
+            }
         }
 
         public void Draw()
         {
-            foreach (Screen screen in screens)
-                if (screen.State == ScreenState.Active)
-                    screen.Draw();
+            foreach (Screen screen in screens.FindAll(s => s.State != ScreenState.Shutdown))
+                screen.Draw();
         }
 
     }
