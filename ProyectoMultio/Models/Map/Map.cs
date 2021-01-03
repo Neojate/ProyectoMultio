@@ -67,6 +67,14 @@ namespace ProyectoMultio.Models.Map
             };
         }
 
+        public void UpdateBlocking()
+        {
+            foreach (Element element in Elements)
+            {
+                Scenario[element.Position.X, element.Position.Y].IsBlock = element.IsBlock;
+            }
+        }
+
         public void Draw(Camera camera)
         {
             for (int y = 0; y < camera.RenderTiles.Y + 1; y++) 
