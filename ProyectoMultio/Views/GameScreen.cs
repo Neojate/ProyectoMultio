@@ -26,8 +26,15 @@ namespace ProyectoMultio.Views
 
         public GameScreen()
         {
-            pathfinding = new Pathfinding(map.Scenario);
-            var x = pathfinding.Start(new Point(1, 1), new Point(10, 10));
+            map.UpdateBlocking();
+            //pathfinding = new Pathfinding(map.Scenario);
+            //var x = pathfinding.Start(new Point(1, 1), new Point(10, 10));
+
+            Pathfinding path = new Pathfinding(map.Scenario);
+            var x = path.SearchPath(new Point(1, 1), new Point(10, 10));
+
+            foreach (var j in x)
+                map.Scenario[j.X, j.Y].BackgroundColor = Color.Red;
         }
         
         public override void Draw()

@@ -17,7 +17,7 @@ namespace ProyectoMultio.Models.Elements
 
         public Color BackgroundColor { get; set; } = Color.White;
 
-        public string Name { get; set; }
+        public string Name { get; set; } = "";
 
         //Si el elemento bloquea el camino
         public bool IsBlock { get; set; }

@@ -16,41 +16,31 @@ namespace ProyectoMultio.Modules.Mechanics.Pathfinding
 
         public int F { get; set; }
         public int H { get; set; }
-
-        private int g;        
-
-        public Node()
-        {
-
-        }
+        public int G { get; set; }
 
         public Node(Point position)
         {
             this.Position = position;
         }
 
-        public List<Node> AdjacentNodes(Tile[,] map)
+        public List<Node> NeighbourNodes(Tile[,] map, List<Node> closedNodes)
         {
-            List<Node> adjacentNodes = new List<Node>()
-            {
-                new Node(new Point(Position.X, Position.Y - 1)),
-                new Node(new Point(Position.X, Position.Y + 1)),
-                new Node(new Point(Position.X - 1, Position.Y)),
-                new Node(new Point(Position.X + 1, Position.Y))
-            };
-            return adjacentNodes.Where(node => !map[node.Position.X, node.Position.Y].IsBlock).ToList();
+            List<Node> neighbourdNodes = new List<Node>();
+            for (int y = -1; y < 2; y++)
+                for (int x = -1; x < 2; x++)
+                    if (!(x == 0 && y == 0) && !map[Position.X + x, Position.Y + y].IsBlock)
+                        neighbourdNodes.Add(new Node(new Point(Position.X + x, Position.Y + y)));
+            return neighbourdNodes;
         }
 
-        public void CalculateF(Node endNode, int g)
+        public void CalculateFGH(Node startNode, Node endNode)
         {
-            this.g = g;
-            F = calculateH(endNode) + g;
-        }
-
-        private int calculateH(Node endNode)
-        {
+            //distancia al nodo inicial
+            G = Math.Abs(Position.X - startNode.Position.X) + Math.Abs(Position.Y - startNode.Position.Y);
+            //distancia al nodo final
             H = Math.Abs(Position.X - endNode.Position.X) + Math.Abs(Position.Y - endNode.Position.Y);
-            return H;
-        }
+            //sumatorio
+            F = G + H;
+        }       
     }
 }

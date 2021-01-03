@@ -1,82 +1,70 @@
 ﻿using Microsoft.Xna.Framework;
 using ProyectoMultio.Models.Map;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace ProyectoMultio.Modules.Mechanics.Pathfinding
 {
     public class Pathfinding
     {
-        private const int AXIS_VALUE = 10;
-        private const int DIAGONAL_VALUE = 14;
-
         private Tile[,] map;
 
-        private List<Node> openNodes;
-        private List<Node> closestNodes;
-
         private Node startNode, endNode, currentNode;
-
-        private int g;
+        private List<Node> openNodes = new List<Node>();
+        private List<Node> closedNodes = new List<Node>();
 
         public Pathfinding(Tile[,] map)
         {
             this.map = map;
         }
 
-        public List<Node> Start(Point initialPoint, Point endPoint)
+        public List<Point> SearchPath(Point startPosition, Point endPosition)
         {
-            startNode   = new Node(initialPoint);
-            endNode     = new Node(endPoint);
-
-            openNodes = new List<Node>();
-            closestNodes = new List<Node>();
+            startNode   = new Node(startPosition);
+            endNode     = new Node(endPosition);
 
             openNodes.Add(startNode);
 
-            while (openNodes.Count > 0)
+            while(openNodes.Count > 0)
             {
-                int lowerFValue = openNodes.Min(node => node.F);
-                currentNode = openNodes.First(node => node.F == lowerFValue);
-
-                closestNodes.Add(currentNode);
+                currentNode = openNodes.OrderBy(node => node.F).First();
+                
                 openNodes.Remove(currentNode);
+                closedNodes.Add(currentNode);
 
-                if (closestNodes.FirstOrDefault(node => node.Position == endNode.Position) != null) 
+                if (currentNode.Position == endPosition)
                     break;
 
-                List<Node> adjacentNodes = currentNode.AdjacentNodes(map);
-                g += AXIS_VALUE;
-
-                foreach (Node node in adjacentNodes)
+                foreach (Node neighbourNode in currentNode.NeighbourNodes(map, closedNodes))
                 {
-                    if (openNodes.FirstOrDefault(n => n.Position == node.Position) == null)
+                    if (closedNodes.FirstOrDefault(n => n.Position == neighbourNode.Position) != null)
+                        continue;
+
+                    if (openNodes.FirstOrDefault(n => n.Position == neighbourNode.Position) == null)
                     {
-                        node.CalculateF(endNode, g);
-                        node.Parent = currentNode;
-                        openNodes.Insert(0, node);
-                    } 
+                        openNodes.Add(neighbourNode);
+                        neighbourNode.Parent = currentNode;
+                        neighbourNode.CalculateFGH(startNode, endNode);
+                    }
                     else
                     {
-                        if (g + node.H < node.F)
+                        if (neighbourNode.G < currentNode.G)
                         {
-                            node.CalculateF(endNode, g);
-                            node.Parent = currentNode;
+                            neighbourNode.Parent = currentNode;
+                            neighbourNode.CalculateFGH(startNode, endNode);
                         }
                     }
-
                 }
             }
-            List<Node> result = new List<Node>();
-            while (currentNode != null)
+
+            List<Point> finalPositions = new List<Point>();
+            while(currentNode != null)
             {
-                result.Add(currentNode);
+                finalPositions.Add(new Point(currentNode.Position.X, currentNode.Position.Y));
                 currentNode = currentNode.Parent;
             }
-            return result;
+            return finalPositions;
         }
     }
 }

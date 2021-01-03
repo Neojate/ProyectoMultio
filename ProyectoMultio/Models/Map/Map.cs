@@ -26,22 +26,6 @@ namespace ProyectoMultio.Models.Map
                     Scenario[x, y] = Utils.GetTile(TileType.Road);
 
             Scenario[13, 5] = Utils.GetTile(TileType.Grass);
-
-            for (int y = 0; y < Size.Y; y++)
-            {
-                Scenario[0, y].IsBlock = true;
-                Scenario[Size.X - 1, y].IsBlock = true;
-            }
-                
-
-            for (int x = 0; x < Size.X; x++)
-            {
-                Scenario[x, 0].IsBlock = true;
-                Scenario[x, Size.Y - 1].IsBlock = true;
-            }
-
-            for (int i = 0; i < 8; i++)
-                Scenario[3, i].IsBlock = true;
             
             //elementos de pega
             Elements = new List<Element>()
@@ -65,14 +49,39 @@ namespace ProyectoMultio.Models.Map
                     Name = Lang.Trans("marker")
                 }
             };
+
+            for (int y = 0; y < Size.Y; y++)
+            {
+                Wall wallLeft = new Wall();
+                wallLeft.Position = new Point(0, y);
+                Wall wallRight = new Wall();
+                wallRight.Position = new Point(Size.X - 1, y);
+                Elements.Add(wallLeft);
+                Elements.Add(wallRight);
+            }
+
+            for (int x = 0; x < Size.X; x++)
+            {
+                Wall wallTop = new Wall();
+                wallTop.Position = new Point(x, 0);
+                Wall wallBot = new Wall();
+                wallBot.Position = new Point(x, Size.Y - 1);
+                Elements.Add(wallTop);
+                Elements.Add(wallBot);
+            }
+
+            //comprobación pathfinding
+            Elements.Add(new Wall() { Position = new Point(3, 1) });
+            Elements.Add(new Wall() { Position = new Point(3, 2) });
+            Elements.Add(new Wall() { Position = new Point(3, 3) });
+            Elements.Add(new Wall() { Position = new Point(1, 3) });
+            Elements.Add(new Wall() { Position = new Point(2, 3) });
         }
 
         public void UpdateBlocking()
         {
             foreach (Element element in Elements)
-            {
                 Scenario[element.Position.X, element.Position.Y].IsBlock = element.IsBlock;
-            }
         }
 
         public void Draw(Camera camera)

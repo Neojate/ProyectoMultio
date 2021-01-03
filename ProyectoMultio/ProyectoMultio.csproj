@@ -49,6 +49,7 @@
     <Compile Include="Models\Components\MouseElement.cs" />
     <Compile Include="Models\Components\Panel.cs" />
     <Compile Include="Models\Components\Style.cs" />
+    <Compile Include="Models\Elements\Wall.cs" />
     <Compile Include="Models\Items\Item.cs" />
     <Compile Include="Models\Character\Sheet.cs" />
     <Compile Include="Models\Character\MoveType.cs" />
