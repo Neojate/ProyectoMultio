@@ -2,9 +2,9 @@
 using ProyectoMultio.Modules.Actions;
 using System.Collections.Generic;
 
-namespace ProyectoMultio.Models.Elements
+namespace ProyectoMultio.Models.Structures
 {
-    public class Door : Element, IUsable, IContextualizable
+    public class Door : Structure, IUsable, IContextualizable
     {
         public bool IsOpen { get; set; }
         public Rectangle SourceOpen { get; set; }

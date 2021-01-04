@@ -8,19 +8,14 @@ namespace ProyectoMultio.Modules.Mechanics.Pathfinding
 {
     public class Pathfinding
     {
-        private Tile[,] map;
-
         private Node startNode, endNode, currentNode;
         private List<Node> openNodes = new List<Node>();
         private List<Node> closedNodes = new List<Node>();
 
-        public Pathfinding(Tile[,] map)
+        public List<Point> SearchPath(Point startPosition, Point endPosition, Map map)
         {
-            this.map = map;
-        }
+            map.UpdateBlocking();
 
-        public List<Point> SearchPath(Point startPosition, Point endPosition)
-        {
             startNode   = new Node(startPosition);
             endNode     = new Node(endPosition);
 
@@ -36,7 +31,7 @@ namespace ProyectoMultio.Modules.Mechanics.Pathfinding
                 if (currentNode.Position == endPosition)
                     break;
 
-                foreach (Node neighbourNode in currentNode.NeighbourNodes(map, closedNodes))
+                foreach (Node neighbourNode in currentNode.NeighbourNodes(map.Scenario, closedNodes))
                 {
                     if (closedNodes.FirstOrDefault(n => n.Position == neighbourNode.Position) != null)
                         continue;

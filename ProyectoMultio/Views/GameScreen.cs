@@ -8,8 +8,9 @@ using ProyectoMultio.Modules.Options;
 using ProyectoMultio.Models.Character;
 using ProyectoMultio.Models.Cameras;
 using ProyectoMultio.Models.Components;
-using ProyectoMultio.Models.Elements;
 using ProyectoMultio.Modules.Mechanics.Pathfinding;
+using System.Linq;
+using ProyectoMultio.Models;
 
 namespace ProyectoMultio.Views
 {
@@ -31,7 +32,7 @@ namespace ProyectoMultio.Views
             //var x = pathfinding.Start(new Point(1, 1), new Point(10, 10));
 
             Pathfinding path = new Pathfinding(map.Scenario);
-            var x = path.SearchPath(new Point(1, 1), new Point(10, 10));
+            var x = path.SearchPath(new Point(2, 1), new Point(10, 10));
 
             foreach (var j in x)
                 map.Scenario[j.X, j.Y].BackgroundColor = Color.Red;
@@ -45,12 +46,11 @@ namespace ProyectoMultio.Views
             player.Render(camera);
 
             mouse.Draw();
-            
-            Point m = new Point(Input.MousePosition.X / Globals.TileSize.X, Input.MousePosition.Y / Globals.TileSize.Y);
-            p = new Point(m.X - camera.Position.X, m.Y - camera.Position.Y);
-            foreach (Element element in map.Elements.FindAll(e => e.Position == p))
-                Globals.SpriteBatch.DrawString(Fonts.Arial8, element.Name, new Vector2(10, 10), Color.White);
-                
+
+            //Point m = new Point(Input.MousePosition.X / Globals.TileSize.X, Input.MousePosition.Y / Globals.TileSize.Y);
+            //p = new Point(m.X - camera.Position.X, m.Y - camera.Position.Y);
+            //foreach (Element element in map.Elements.Where(e => e.Position == p))
+            //    Globals.SpriteBatch.DrawString(Fonts.Arial8, element.Name, new Vector2(10, 10), Color.White);
         }
 
         public override void HandleInput()

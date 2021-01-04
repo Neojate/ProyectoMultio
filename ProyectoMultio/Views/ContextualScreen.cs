@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using ProyectoMultio.Helper;
+using ProyectoMultio.Models;
 using ProyectoMultio.Models.Components;
-using ProyectoMultio.Models.Elements;
 using ProyectoMultio.Models.Screen;
 using ProyectoMultio.Modules.Actions;
 using System.Collections.Generic;

@@ -5,7 +5,7 @@ using ProyectoMultio.Models.Cameras;
 using ProyectoMultio.Modules.Actions;
 using System.Collections.Generic;
 
-namespace ProyectoMultio.Models.Elements
+namespace ProyectoMultio.Models
 {
     public class Element : IRenderizable
     {
