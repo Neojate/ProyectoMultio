@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using ProyectoMultio.Models.Map;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -60,6 +61,11 @@ namespace ProyectoMultio.Modules.Mechanics.Pathfinding
                 currentNode = currentNode.Parent;
             }
             return finalPositions;
+        }
+
+        internal object SearchPath(Point point1, Point point2)
+        {
+            throw new NotImplementedException();
         }
     }
 }

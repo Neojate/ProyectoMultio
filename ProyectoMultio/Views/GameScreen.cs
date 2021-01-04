@@ -31,10 +31,10 @@ namespace ProyectoMultio.Views
             //pathfinding = new Pathfinding(map.Scenario);
             //var x = pathfinding.Start(new Point(1, 1), new Point(10, 10));
 
-            Pathfinding path = new Pathfinding(map.Scenario);
-            var x = path.SearchPath(new Point(2, 1), new Point(10, 10));
+            Pathfinding path = new Pathfinding();
+            List<Point> points  = path.SearchPath(new Point(2, 1), new Point(10, 10), map);
 
-            foreach (var j in x)
+            foreach (var j in points)
                 map.Scenario[j.X, j.Y].BackgroundColor = Color.Red;
         }
         
