@@ -2,13 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using ProyectoMultio.Helper;
 using ProyectoMultio.Models.Cameras;
-using ProyectoMultio.Models.Elements;
 using ProyectoMultio.Modules.Actions;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ProyectoMultio.Models.Components
 {

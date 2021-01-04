@@ -19,13 +19,15 @@ namespace ProyectoMultio.Models.Map
         //booleano para saber si es visible o no
         public bool IsVisible { get; set; }
 
+        public Color BackgroundColor;
+
         public void Render(Point Position)
         {
             Globals.SpriteBatch.Draw(
                 Textures.Tiles,
                 new Rectangle(Position, Globals.TileSize), 
                 new Rectangle(SourcePoint, Globals.TileSize), 
-                Color.White
+                BackgroundColor
                 );
         }
     }

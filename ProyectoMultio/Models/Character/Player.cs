@@ -1,7 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
 using ProyectoMultio.Helper;
-using ProyectoMultio.Models.Cameras;
-using ProyectoMultio.Models.Elements;
 using System.Collections.Generic;
 
 namespace ProyectoMultio.Models.Character

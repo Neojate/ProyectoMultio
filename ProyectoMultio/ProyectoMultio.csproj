@@ -49,6 +49,10 @@
     <Compile Include="Models\Components\MouseElement.cs" />
     <Compile Include="Models\Components\Panel.cs" />
     <Compile Include="Models\Components\Style.cs" />
+    <Compile Include="Models\Furniture\Chair.cs" />
+    <Compile Include="Models\Furniture\Furniture.cs" />
+    <Compile Include="Models\Structures\Structure.cs" />
+    <Compile Include="Models\Structures\Wall.cs" />
     <Compile Include="Models\Items\Item.cs" />
     <Compile Include="Models\Character\Sheet.cs" />
     <Compile Include="Models\Character\MoveType.cs" />
@@ -64,8 +68,8 @@
     <Compile Include="Main\Game1.cs" />
     <Compile Include="Helper\Globals.cs" />
     <Compile Include="Models\Cameras\Camera.cs" />
-    <Compile Include="Models\Elements\Element.cs" />
-    <Compile Include="Models\Elements\Door.cs" />
+    <Compile Include="Models\Element.cs" />
+    <Compile Include="Models\Structures\Door.cs" />
     <Compile Include="Models\Map\Map.cs" />
     <Compile Include="Models\Map\Tile.cs" />
     <Compile Include="Models\Map\TileType.cs" />

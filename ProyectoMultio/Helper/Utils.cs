@@ -18,17 +18,20 @@ namespace ProyectoMultio.Helper
                 case TileType.Road:
                     return new Tile()
                     {
-                        SourcePoint = new Point(96, 32)
+                        SourcePoint = new Point(96, 32),
+                        BackgroundColor = Color.White
                     };
                 case TileType.Grass:
                     return new Tile()
                     {
-                        SourcePoint = new Point(32, 0)
+                        SourcePoint = new Point(32, 0),
+                        BackgroundColor = Color.White
                     };
                 default:
                     return new Tile()
                     {
-                        SourcePoint = new Point(0, 0)
+                        SourcePoint = new Point(0, 0),
+                        BackgroundColor = Color.White
                     };
                     
             }
