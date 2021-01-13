@@ -1,10 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using ProyectoMultio.Models.Character;
 
 namespace ProyectoMultio.Helper
 {
@@ -72,6 +68,12 @@ namespace ProyectoMultio.Helper
                 default:
                     return false;
             }
+        }
+
+        public static Point MouseTileCoords(Camera camera)
+        {
+            Point m = new Point(MousePosition.X / Globals.TileSize.X, MousePosition.Y / Globals.TileSize.Y);
+            return new Point(m.X - camera.Position.X, m.Y - camera.Position.Y);
         }
 
     }

@@ -13,10 +13,11 @@ namespace ProyectoMultio.Modules.ScreenManagers
             screens.Add(screen);
         }
 
-        public void AddWithoutFocus(Screen newScreen, Screen unfocusScreen)
+        public void AddScreenAndFocus(Screen screen)
         {
-            screens.Add(newScreen);
-            unfocusScreen.State = ScreenState.Hidden;
+            foreach (Screen s in screens)
+                s.State = ScreenState.Hidden;
+            screens.Add(screen);
         }
 
         /* Método estático para quitar pantallas a las actuales */

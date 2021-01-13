@@ -3,7 +3,7 @@ using ProyectoMultio.Helper;
 using ProyectoMultio.Models;
 using ProyectoMultio.Models.Components;
 using ProyectoMultio.Models.Screen;
-using ProyectoMultio.Modules.Actions;
+using ProyectoMultio.Modules.Verbs;
 using System.Collections.Generic;
 
 namespace ProyectoMultio.Views
@@ -20,14 +20,15 @@ namespace ProyectoMultio.Views
 
             int yCoord = initialPosition.Y;
             int yCoordIncrement = 30;
-            foreach (string nameMethod in ((IContextualizable)element).ContextualizeMethods())
+            foreach (Contextual contextual in ((IContextualizable)element).ContextualizeMethods())
             {
                 ContextualButton button = new ContextualButton()
                 { 
                     Bounds = new Rectangle(initialPosition.X, yCoord, 200, yCoordIncrement),
                     SourceRectangle = new Rectangle(0, 0, 1, 1),
-                    NameMethod = nameMethod,
-                    Element = element
+                    NameMethod = contextual.NameMethod,
+                    Element = element,
+                    IsActive = contextual.CanUseOnMap
                 };
                 buttons.Add(button);
             }
@@ -38,7 +39,7 @@ namespace ProyectoMultio.Views
             Globals.SpriteBatch.Draw(Textures.Another, bounds, new Rectangle(0, 0, 1, 1), Color.White);
             
             foreach (IRenderizable component in buttons)
-                component.Render(null);
+                component.Render();
         }
 
         public override void HandleInput()

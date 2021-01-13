@@ -2,15 +2,19 @@
 using ProyectoMultio.Helper;
 using ProyectoMultio.Models.Character;
 
-namespace ProyectoMultio.Models.Cameras
+namespace ProyectoMultio.Models.Character
 {
     public class Camera
     {
         public Point Position { get; set; }
         public Vector2 RenderTiles { get; set; }
 
-        public Camera()
+        private Player player;
+
+        public Camera(Player player)
         {
+            this.player = player;
+
             Position = new Point(1, 1);
 
             RenderTiles = new Vector2()
@@ -20,7 +24,7 @@ namespace ProyectoMultio.Models.Cameras
             };
         }
 
-        public void MoveCamera(Player player)
+        public void MoveCamera()
         {
             Point destination = new Point()
             {

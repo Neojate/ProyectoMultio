@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ProyectoMultio.Modules.Actions
+namespace ProyectoMultio.Models.Maps
 {
-    public interface IContextualizable
+    public enum TileType
     {
-        List<string> ContextualizeMethods();
+        Road, Grass
     }
 }

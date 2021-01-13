@@ -2,7 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using ProyectoMultio.Helper;
 
-namespace ProyectoMultio.Models.Map
+namespace ProyectoMultio.Models.Maps
 {
     public struct Tile
     {
@@ -23,6 +23,8 @@ namespace ProyectoMultio.Models.Map
 
         public void Render(Point Position)
         {
+            //BackgroundColor = IsVisible ? Color.White : Color.Gray;
+
             Globals.SpriteBatch.Draw(
                 Textures.Tiles,
                 new Rectangle(Position, Globals.TileSize), 

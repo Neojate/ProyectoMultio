@@ -14,7 +14,8 @@ namespace ProyectoMultio.Helper
 
         public static string Trans(string key)
         {
-            return dictionary[key];
+            try { return dictionary[key]; }
+            catch { return key; }
         }
 
         public static void Load()
@@ -34,6 +35,12 @@ namespace ProyectoMultio.Helper
             //METODOS
             dictionary.Add("Use", "Usar");
             dictionary.Add("Grab", "Coger");
+
+            //PERSONAJES
+            dictionary.Add("npc001_001", "Hola");
+            dictionary.Add("npc001_002", "Buenas tardes");
+            dictionary.Add("npc001_003", "Cómo ha ido el año?");
+            dictionary.Add("npc001_004", "En mi caso ha ido perfecto");
         }
 
         public static void Save()

@@ -1,17 +1,18 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ProyectoMultio.Helper;
-using ProyectoMultio.Models.Cameras;
-using ProyectoMultio.Modules.Actions;
+using ProyectoMultio.Modules.Verbs;
 
 namespace ProyectoMultio.Models.Components
 {
     public class ContextualButton : Component, IClickable
     {
         public string NameMethod { get; set; } = "";
-        public SpriteFont Font { get; set; } = Fonts.Arial8;
+        public SpriteFont Font { get; set; } = Fonts.Arial14;
         public Color FontColor { get; set; } = Color.Black;
         public Element Element { get; set; }
+
+        public bool IsActive { get; set; } = true;
 
         public ContextualButton()
         {
@@ -20,12 +21,15 @@ namespace ProyectoMultio.Models.Components
 
         public void onClick()
         {
-            if (Bounds.Contains(Input.MousePosition))
+            if (IsActive && Bounds.Contains(Input.MousePosition))
                 Element.GetType().GetMethod(NameMethod).Invoke(Element, null);
         }
 
         public void onHover()
         {
+            if (!IsActive)
+                return;
+
             if (Bounds.Contains(Input.MousePosition))
             {
                 BackgroundColor = Color.Gray;
@@ -39,7 +43,7 @@ namespace ProyectoMultio.Models.Components
 
         }
 
-        public override void Render(Camera camera)
+        public override void Render()
         {
             Globals.SpriteBatch.Draw(Texture, Bounds, SourceRectangle, BackgroundColor);
 

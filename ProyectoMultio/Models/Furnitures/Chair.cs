@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ProyectoMultio.Models.Furniture
+namespace ProyectoMultio.Models.Furnitures
 {
     public  class Chair : Furniture
     {

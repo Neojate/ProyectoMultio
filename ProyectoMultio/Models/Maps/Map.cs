@@ -1,13 +1,14 @@
 ﻿using Microsoft.Xna.Framework;
 using ProyectoMultio.Helper;
-using ProyectoMultio.Models.Cameras;
-using ProyectoMultio.Models.Furniture;
+using ProyectoMultio.Models.Character;
+using ProyectoMultio.Models.Furnitures;
 using ProyectoMultio.Models.Items;
+using ProyectoMultio.Models.Npcs;
 using ProyectoMultio.Models.Structures;
-using ProyectoMultio.Modules.Actions;
+using ProyectoMultio.Modules.Verbs;
 using System.Collections.Generic;
 
-namespace ProyectoMultio.Models.Map
+namespace ProyectoMultio.Models.Maps
 {
     public class Map
     {
@@ -16,8 +17,12 @@ namespace ProyectoMultio.Models.Map
 
         public List<Element> Elements { get; set; }
 
-        public Map()
+        private Player player;
+
+        public Map(Player player)
         {
+            this.player = player;
+
             Size = new Point(100, 100);
             Scenario = new Tile[Size.X, Size.Y];
 
@@ -33,24 +38,34 @@ namespace ProyectoMultio.Models.Map
             {
                 new Door()
                 {
-                    Position = new Point(7, 3),
+                    Position = new Point(3, 5),
                     SourceRectangle = new Rectangle(0, 0, 32, 32),
                     SourceClose = new Rectangle(0, 0, 32, 32),
                     SourceOpen = new Rectangle(32, 0, 32, 32),
                     IsOpen = false,
                     IsBlock = true,
-                    Name = Lang.Trans("door")
+                    Name = Lang.Trans("door"),
                 },
-                //new Item()
-                //{
-                //    Position = new Point(5, 5),
-                //    SourceRectangle = new Rectangle(0, 0, 32, 32),
-                //    Texture = Textures.Structures,
-                //    Name = Lang.Trans("marker")
-                //},
                 new Chair()
                 {
-                    Position = new Point(4, 5)
+                    Position = new Point(7, 7),
+                },
+                new Allied()
+                {
+                    SourceRectangle = new Rectangle(0, 0, 32, 32),
+                    Conversation = new string[] { "npc001_001", "npc001_002", "npc001_003", "npc001_004" },
+                    Position = new Point(10, 10),
+                },
+                new Item(this, player)
+                {
+                    Position = new Point(11, 7),
+                    Texture = Textures.Npcs,
+                    SourceRectangle = new Rectangle(0, 0, 32, 32),
+                },
+                //Enemigos
+                new Enemy()
+                {
+                    Position = new Point(12, 12)
                 }
             };
 
@@ -75,21 +90,31 @@ namespace ProyectoMultio.Models.Map
             }
 
             //comprobación pathfinding
-            Elements.Add(new Wall() { Position = new Point(3, 1) });
-            Elements.Add(new Wall() { Position = new Point(3, 2) });
-            Elements.Add(new Wall() { Position = new Point(3, 3) });
-            //Elements.Add(new Wall() { Position = new Point(1, 3) });
-            Elements.Add(new Wall() { Position = new Point(2, 3) });
+            for (int i = 1; i < 6; i++)
+                Elements.Add(new Wall() { Position = new Point(5, i) });
+            Elements.Add(new Wall() { Position = new Point(1, 5) });
+            Elements.Add(new Wall() { Position = new Point(2, 5) });
+            Elements.Add(new Wall() { Position = new Point(4, 5) });
+
+            Elements.Add(new Wall() { Position = new Point(13, 14) });
+            Elements.Add(new Wall() { Position = new Point(15, 14) });
+
+            Elements.ForEach(element => element.Player = player);
+
         }
 
-        public void UpdateBlocking()
+        public void UpdateMap()
         {
             foreach (Element element in Elements)
+            {
                 Scenario[element.Position.X, element.Position.Y].IsBlock = element.IsBlock;
+                element.IsVisible = Scenario[element.Position.X, element.Position.Y].IsVisible;
+            }
         }
 
-        public void Draw(Camera camera)
+        public void Draw()
         {
+            Camera camera = player.Camera;
             for (int y = 0; y < camera.RenderTiles.Y + 1; y++) 
             { 
                 for (int x = 0; x < camera.RenderTiles.X + 1; x++)
@@ -102,7 +127,7 @@ namespace ProyectoMultio.Models.Map
             }
 
             foreach (IRenderizable element in Elements)
-                element.Render(camera);
+                element.Render();
         }
     }
 }

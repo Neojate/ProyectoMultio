@@ -1,9 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
-using ProyectoMultio.Models.Map;
-using System;
+using ProyectoMultio.Models.Maps;
 using System.Collections.Generic;
 using System.Linq;
-
 
 namespace ProyectoMultio.Modules.Mechanics.Pathfinding
 {
@@ -15,8 +13,6 @@ namespace ProyectoMultio.Modules.Mechanics.Pathfinding
 
         public List<Point> SearchPath(Point startPosition, Point endPosition, Map map)
         {
-            map.UpdateBlocking();
-
             startNode   = new Node(startPosition);
             endNode     = new Node(endPosition);
 
@@ -57,15 +53,10 @@ namespace ProyectoMultio.Modules.Mechanics.Pathfinding
             List<Point> finalPositions = new List<Point>();
             while(currentNode != null)
             {
-                finalPositions.Add(new Point(currentNode.Position.X, currentNode.Position.Y));
+                finalPositions.Add(currentNode.Position);
                 currentNode = currentNode.Parent;
             }
             return finalPositions;
-        }
-
-        internal object SearchPath(Point point1, Point point2)
-        {
-            throw new NotImplementedException();
         }
     }
 }

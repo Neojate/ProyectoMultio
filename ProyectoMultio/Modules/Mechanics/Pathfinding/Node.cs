@@ -1,10 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
-using ProyectoMultio.Models.Map;
+using ProyectoMultio.Models.Maps;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ProyectoMultio.Modules.Mechanics.Pathfinding
 {

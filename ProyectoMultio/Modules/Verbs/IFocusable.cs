@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ProyectoMultio.Modules.Actions
+namespace ProyectoMultio.Modules.Verbs
 {
-    public interface IInspectable
+    interface IFocusable
     {
-        void Inspect();
+        void Focus();
     }
 }

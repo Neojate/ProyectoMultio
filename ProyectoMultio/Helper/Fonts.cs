@@ -11,9 +11,13 @@ namespace ProyectoMultio.Helper
     {
         public static SpriteFont Arial8 { get; set; }
 
+        public static SpriteFont Arial14 { get; set; }
+
         public static void Load()
         {
             Arial8 = Globals.Content.Load<SpriteFont>("fonts/arial_8");
+
+            Arial14 = Globals.Content.Load<SpriteFont>("fonts/arial_14");
         }
     }
 }

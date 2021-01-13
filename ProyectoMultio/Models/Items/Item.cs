@@ -1,5 +1,6 @@
 ﻿using ProyectoMultio.Models.Character;
-using ProyectoMultio.Modules.Actions;
+using ProyectoMultio.Models.Maps;
+using ProyectoMultio.Modules.Verbs;
 using System.Collections.Generic;
 
 namespace ProyectoMultio.Models.Items
@@ -7,9 +8,13 @@ namespace ProyectoMultio.Models.Items
     public class Item : Element, IGrabable, IContextualizable
     {
         public bool IsAnItem { get; set; } = true;
-        public Item()
+        private Player player;
+        private Map map;
+        public Item(Map map, Player player)
         {
             IsBlock = false;
+            this.player = player;
+            this.map = map;
         }
 
         public void Drop()
@@ -17,15 +22,18 @@ namespace ProyectoMultio.Models.Items
             throw new System.NotImplementedException();
         }
 
-        public void Grab(Player player, Map.Map map)
+        public void Grab()
         {
             player.CharacterSheet.Inventory.Add(this);
             map.Elements.Remove(this);
         }
 
-        public List<string> ContextualizeMethods()
+        public List<Contextual> ContextualizeMethods()
         {
-            return new List<string>() { "Grab" };
+            return new List<Contextual>()
+            {
+                new Contextual("Grab", true)
+            };
         }
     }
 }

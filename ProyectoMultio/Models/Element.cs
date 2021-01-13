@@ -1,9 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ProyectoMultio.Helper;
-using ProyectoMultio.Models.Cameras;
-using ProyectoMultio.Modules.Actions;
-using System.Collections.Generic;
+using ProyectoMultio.Models.Character;
+using ProyectoMultio.Modules.Verbs;
 
 namespace ProyectoMultio.Models
 {
@@ -21,9 +20,13 @@ namespace ProyectoMultio.Models
 
         //Si el elemento bloquea el camino
         public bool IsBlock { get; set; }
+        public bool IsVisible { get; set; }
 
-        public virtual void Render(Camera camera)
+        public Player Player { get; set; }
+
+        public virtual void Render()
         {
+            Camera camera = Player.Camera;
             Point drawPos = new Point((Position.X + camera.Position.X) * Globals.TileSize.X, (Position.Y + camera.Position.Y) * Globals.TileSize.Y);
             Globals.SpriteBatch.Draw(Texture, 
                 new Rectangle(drawPos.X, drawPos.Y, Globals.TileSize.X, Globals.TileSize.Y), 

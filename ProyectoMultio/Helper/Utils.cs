@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using ProyectoMultio.Models.Map;
+using ProyectoMultio.Models.Maps;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -56,5 +56,38 @@ namespace ProyectoMultio.Helper
                 Y = (bounds.Height / 2 - measureText.Y / 2) + bounds.Y
             };
         }
+
+        public static List<string> AdjustText(Rectangle bounds, SpriteFont font, string text)
+        {
+            if (font.MeasureString(text).X < bounds.Width)
+                return new List<string>() { text };
+
+            string[] words = text.Split(' ');
+            List<string> result = new List<string>();
+
+            int x = 0;
+            string textAux = "";
+            while(x < words.Length)
+            {
+                x++;
+                if (font.MeasureString(textAux).X < bounds.Width)    
+                    textAux = textAux == "" ? words[x] : $"{textAux} {words[x]}";
+                else
+                {
+                    result.Add(textAux);
+                    textAux = "";
+                }
+            }
+
+            return result;
+        }
+
+        //public static string[] AdjustText(Rectangle bounds, SpriteFont font, string text)
+        //{
+        //    if (font.MeasureString(text).X < bounds)
+        //        return new string[]
+
+        //    return null;
+        //}
     }
 }

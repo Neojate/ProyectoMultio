@@ -15,6 +15,9 @@ namespace ProyectoMultio.Helper
         //SpriteBatch del proyecto
         public static SpriteBatch SpriteBatch { get; set; }
 
+        //Contador del tiempo
+        public static GameTime GameTime { get; set; }
+
         //ScreenManager
         public static ScreenManager ScreenManager { get; set; }
 
